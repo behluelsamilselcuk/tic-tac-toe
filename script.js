@@ -117,8 +117,70 @@ function gameController() {
     }
 
     return {
-        playRound
+        playRound,
+        getBoard: game.getBoard,
+        getActivePlayer: player.getActivePlayer,
+        checkWinner: game.checkWinner
     }
 }
 
-const playGame = gameController();
+function ScreenController() {
+    const playGame = gameController();
+    const playersTurnDiv = document.querySelector('.turn');
+    const gameBoardDiv = document.querySelector('.board');
+    const restartButton = document.querySelector('.restart');
+
+    const updateScreen = () => {
+        playersTurnDiv.textContent = '';
+        gameBoardDiv.textContent = '';
+
+        const activePlayer = playGame.getActivePlayer();
+        const board = playGame.getBoard();
+        
+        const result = playGame.checkWinner(); // Gewinner ermitteln
+
+        if (result === 'draw') {
+            playersTurnDiv.textContent = 'Das Spiel ist unentschieden.';
+        } else if (result === 'X' || result === 'O') {
+            const winner = result === 'X' ? 'Player-1' : 'Player-2';
+            playersTurnDiv.textContent = `${winner} hat gewonnen!`;
+        } else {
+            playersTurnDiv.textContent = `${activePlayer.playerName} ist dran.`;
+        }
+
+
+        board.forEach((row, rowIndex) => {
+            row.forEach((cell, columnIndex) => {
+                const field = document.createElement('button');
+                field.classList.add('cell');
+
+                field.dataset.row = rowIndex;
+                field.dataset.column = columnIndex;
+
+                field.textContent = cell;
+                gameBoardDiv.appendChild(field);
+            });
+        });        
+    }
+
+    const clickHandlerButton = (e) => {
+        const clickedCellRow = e.target.dataset.row;
+        const clickedCellColumn = e.target.dataset.column;
+        
+        if(!clickedCellRow && !clickedCellColumn) return;
+
+        const result = playGame.checkWinner();
+        if (result === 'X' || result === 'O' || result === 'draw') return;
+
+        playGame.playRound(clickedCellRow, clickedCellColumn);
+        updateScreen();
+    }
+    gameBoardDiv.addEventListener('click', clickHandlerButton);
+    updateScreen();
+
+    restartButton.addEventListener('click', () => {
+        location.reload();
+    });
+}
+
+ScreenController()

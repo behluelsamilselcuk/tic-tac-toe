@@ -1,84 +1,87 @@
-## 📄 Tic-Tac-Toe (Konsole-Version)
+## 📄 Tic-Tac-Toe (Browser-Version)
 
 ### 🎮 Beschreibung
 
-Dies ist ein einfaches Tic-Tac-Toe-Spiel, das vollständig in
-**JavaScript** mit **Factory Functions** umgesetzt wurde. Es läuft in
-der Konsole und erlaubt zwei Spielern, abwechselnd Züge zu machen, bis
-ein Spieler gewinnt oder das Spiel unentschieden endet.
+Dies ist ein interaktives Tic-Tac-Toe-Spiel für zwei Spieler, das vollständig mit **HTML**, **CSS** und **JavaScript** umgesetzt wurde.  
+Es läuft im Browser und bietet eine einfache, intuitive Benutzeroberfläche mit visuellem Feedback, Spieleranzeige und einem Neustart-Button.
 
-------------------------------------------------------------------------
+***
 
 ### 🧱 Projektstruktur
 
-Das Spiel besteht aus drei Hauptmodulen:
+Das Spiel besteht aus folgenden Modulen:
 
-1.  **`gameBoard()`** -- verwaltet das Spielfeld.
-2.  **`players()`** -- verwaltet die Spieler und den aktiven Spieler.
-3.  **`gameController()`** -- steuert den Spielablauf und die Logik.
+1.  **`gameBoard()`** – verwaltet das Spielfeld.
+2.  **`players()`** – verwaltet die Spieler und den aktiven Spieler.
+3.  **`gameController()`** – steuert den Spielablauf und die Logik.
+4.  **`ScreenController()`** – verbindet die Logik mit dem DOM und aktualisiert die Anzeige.
 
-------------------------------------------------------------------------
+***
 
 ### ⚙️ Funktionen
 
 #### `gameBoard()`
 
--   `getBoard()` -- gibt das aktuelle Spielfeld zurück.
--   `setToken(player, row, column)` -- setzt das Symbol des Spielers auf
-    das Feld, wenn es frei ist. Gibt `true` zurück bei Erfolg, `false`
-    wenn das Feld belegt ist.
--   `printBoard()` -- gibt das Spielfeld in der Konsole aus.
--   `checkWinner()` -- prüft, ob ein Spieler gewonnen hat oder ob das
-    Spiel unentschieden ist.
+*   `getBoard()` – gibt das aktuelle Spielfeld zurück.
+*   `setToken(player, row, column)` – setzt das Symbol des Spielers auf das Feld, wenn es frei ist.
+*   `printBoard()` – gibt das Spielfeld in der Konsole aus.
+*   `checkWinner()` – prüft, ob ein Spieler gewonnen hat oder ob das Spiel unentschieden ist.
 
 #### `players()`
 
--   `getActivePlayer()` -- gibt den aktuellen Spieler zurück.
--   `switchActivePlayer()` -- wechselt den aktiven Spieler.
+*   `getActivePlayer()` – gibt den aktuellen Spieler zurück.
+*   `switchActivePlayer()` – wechselt den aktiven Spieler.
 
 #### `gameController()`
 
--   `playRound(row, column)` -- führt einen Spielzug aus:
-    -   Prüft, ob das Spiel vorbei ist.
-    -   Versucht, den Zug zu setzen.
-    -   Gibt das Spielfeld aus.
-    -   Prüft auf Sieg oder Unentschieden.
-    -   Wechselt den Spieler, wenn das Spiel weitergeht.
+*   `playRound(row, column)` – führt einen Spielzug aus:
+    *   Prüft, ob das Spiel vorbei ist.
+    *   Versucht, den Zug zu setzen.
+    *   Gibt das Spielfeld aus.
+    *   Prüft auf Sieg oder Unentschieden.
+    *   Wechselt den Spieler, wenn das Spiel weitergeht.
 
-------------------------------------------------------------------------
+#### `ScreenController()`
+
+*   Verbindet die Spiellogik mit dem HTML.
+*   Zeigt an, welcher Spieler gerade am Zug ist.
+*   Zeigt den Gewinner oder ein Unentschieden an.
+*   Verhindert weitere Züge nach Spielende.
+*   Ermöglicht Neustart über einen Button.
+
+***
+
+### 🖥️ Benutzeroberfläche
+
+*   **Spieleranzeige**: Zeigt, wer gerade am Zug ist oder wer gewonnen hat.
+*   **Spielfeld**: 3×3 Raster mit Buttons.
+*   **Neustart-Button**: Setzt das Spiel zurück durch Neuladen der Seite.
+*   **Responsives Design**: Funktioniert auch auf kleineren Bildschirmen.
+
+***
 
 ### 🕹️ Spiel starten
 
-``` javascript
-const playGame = gameController();
+Öffne die `index.html` im Browser.  
+Klicke auf die Felder, um abwechselnd zu spielen.  
+Nach einem Sieg oder Unentschieden erscheint eine Nachricht.  
+Mit dem Button **„Spiel neu starten“** kannst du das Spiel zurücksetzen.
+
+***
+
+### ✅ Beispielanzeige im Browser
+
+```text
+Player-1 ist dran.
+Player-2 hat gewonnen!
+Das Spiel ist unentschieden.
 ```
 
-Dann kannst du Spielzüge in der Konsole ausführen:
-
-``` javascript
-playGame.playRound(0, 0); // Spieler 1 setzt auf Feld oben links
-playGame.playRound(1, 1); // Spieler 2 setzt auf Mitte
-```
-
-------------------------------------------------------------------------
+***
 
 ### 📌 Hinweise
 
--   Das Spiel prüft automatisch auf Sieg oder Unentschieden nach jedem
-    Zug.
--   Ungültige Züge (z. B. auf belegte Felder) werden ignoriert.
--   Das Spiel endet automatisch, wenn ein Spieler gewinnt oder das
-    Spielfeld voll ist.
-
-------------------------------------------------------------------------
-
-### ✅ Beispielausgabe
-
-``` text
-Player-1 hat gewonnen
-[
-  ['X', 'X', 'X'],
-  ['O', 'O', null],
-  [null, null, null]
-]
-```
+*   Das Spiel prüft automatisch nach jedem Zug auf Sieg oder Unentschieden.
+*   Belegte Felder können nicht erneut gewählt werden.
+*   Nach Spielende sind keine weiteren Züge möglich.
+*   Der Neustart erfolgt durch Neuladen der Seite.
